@@ -8,9 +8,18 @@ pipeline {
                 sh "./gradlew clean compileJava compileTestJava --info"
             }
         }
+
         stage('Test') {
             steps {
-                sh "./gradlew test jacocoTestReport --info"
+                sh "./gradlew test --info"
+            }
+        }
+
+        stage('SonarQube analysis') {
+            steps{
+                withSonarQubeEnv('My SonarQube Server') {
+                   sh './gradlew --info sonarqube'
+                }
             }
         }
     }
