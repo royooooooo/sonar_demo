@@ -1,0 +1,1 @@
+CREATE DATABASE sonar COLLATE utf8mb4_bin;
