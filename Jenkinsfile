@@ -15,7 +15,7 @@ pipeline {
 
         stage('SonarQube analysis') {
             steps{
-               sh './gradlew --info sonarqube'
+               sh './gradlew sonarqube'
             }
         }
 
