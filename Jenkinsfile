@@ -1,35 +1,15 @@
-pipeline {
-    agent {
-        label 'java'
-    }
-    stages {
-        stage('Build') {
-            steps {
-                sh "./gradlew clean compileJava compileTestJava --info"
-            }
-        }
-
-        stage('Test') {
-            steps {
-                sh "./gradlew test --info"
-            }
-        }
-
-        stage('SonarQube analysis') {
-            steps{
-                withSonarQubeEnv('My SonarQube Server') {
-                   sh './gradlew --info sonarqube'
-                }
-            }
-        }
-
-    }
-    post {
-        always {
-            archiveArtifacts artifacts: 'build/reports/**'
-        }
+stage('Build') {
+    sh "./gradlew clean compileJava compileTestJava --info"
+}
+stage('Test') {
+    sh "./gradlew test --info"
+}
+stage('SonarQube analysis') {
+    withSonarQubeEnv('My SonarQube Server') {
+       sh './gradlew --info sonarqube'
     }
 }
+
 node{
     stage("Quality Gate") {
         timeout(time: 1, unit: 'HOURS') {
