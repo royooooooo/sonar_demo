@@ -29,7 +29,6 @@ pipeline {
                         if (qg.status != 'OK') {
                             error "未通过Sonarqube的代码质量阈检查，请及时修改！failure: ${qg.status}"
                         }
-                        print qg
                     }
                 }
             }
